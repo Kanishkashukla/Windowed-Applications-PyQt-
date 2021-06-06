@@ -1,0 +1,42 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
+from random import randint
+ 
+app = QApplication([])
+
+# main window:
+my_win = QWidget()
+my_win.setWindowTitle('Lottery')
+my_win.move(100, 100)
+my_win.resize(400, 400)
+
+#window widgets: button and label
+button = QPushButton('Try your luck')
+text = QLabel('Click to participate')
+num1 = QLabel('?')
+num2 = QLabel('?')
+
+#widget layout
+line = QVBoxLayout()
+line.addWidget(text, alignment = Qt.AlignCenter)
+line.addWidget(num1, alignment = Qt.AlignCenter)
+line.addWidget(num2, alignment = Qt.AlignCenter)
+line.addWidget(button, alignment = Qt.AlignCenter)
+my_win.setLayout(line)
+
+#function that generates and displays a number
+def show_winner():
+    number = randint(0, 9)
+    number2 = randint(0,9)
+    num1.setText(str(number))
+    num2.setText(str(number2))
+    if number == number2:
+        text.setText("You win! Play again")
+    else:
+        text.setText("You lose! Play again")
+ 
+#button click processing
+button.clicked.connect(show_winner)
+
+my_win.show()
+app.exec_()
